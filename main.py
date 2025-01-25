@@ -6,8 +6,8 @@ from prompts import new_prompt, instruction_str, context
 from note_engine import note_engine
 from llama_index.tools import QueryEngineTool, ToolMetadata
 from llama_index.agent import ReActAgent
-from llama_index.llms import OpenAI
-from pdf import canada_engine
+from llama_index.llms import Ollama
+from pdf import india_engine
 
 load_dotenv()
 
@@ -29,15 +29,23 @@ tools = [
         ),
     ),
     QueryEngineTool(
-        query_engine=canada_engine,
+        query_engine=india_engine,
         metadata=ToolMetadata(
-            name="canada_data",
-            description="this gives detailed information about canada the country",
+            name="india_data",
+            description="this gives detailed information about climate in india the country",
+        ),
+    ),
+    QueryEngineTool(
+        query_engine=india_engine,
+        metadata=ToolMetadata(
+            name="deforestation_data",
+            description="this gives detailed information about deforestation",
         ),
     ),
 ]
 
-llm = OpenAI(model="gpt-3.5-turbo-0613")
+llm = Ollama(model="llama3.2:3b", temperature=0)  # Add this line
+
 agent = ReActAgent.from_tools(tools, llm=llm, verbose=True, context=context)
 
 while (prompt := input("Enter a prompt (q to quit): ")) != "q":

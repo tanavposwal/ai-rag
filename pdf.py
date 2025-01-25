@@ -18,9 +18,9 @@ def get_index(data, index_name):
 
 
 pdf_path = os.path.join("data", "India.pdf")
-canada_pdf = PDFReader().load_data(file=pdf_path)
-canada_index = get_index(canada_pdf, "canada")
-canada_engine = canada_index.as_query_engine()
+india_pdf = PDFReader().load_data(file=pdf_path)
+india_index = get_index(india_pdf, "india")
+india_engine = india_index.as_query_engine()
 
 pdf_path = os.path.join("data", "Deforestation.pdf")
 deforestation_pdf = PDFReader().load_data(file=pdf_path)
