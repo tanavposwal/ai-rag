@@ -1,9 +1,8 @@
-import os
-from prompts import new_prompt, instruction_str, context
+from prompts import context
 from note_engine import note_engine
-from llama_index.tools import QueryEngineTool, ToolMetadata
-from llama_index.agent import ReActAgent
-from llama_index.llms import Ollama
+from llama_index.core.tools import QueryEngineTool, ToolMetadata
+from llama_index.core.agent import ReActAgent
+from llama_index.llms.gemini import Gemini
 from pdf import india_engine, deforestation_engine
 
 tools = [
@@ -24,7 +23,9 @@ tools = [
     ),
 ]
 
-llm = Ollama(model="llama3.2:3b", temperature=0)  # Add this line
+llm = Gemini(
+    model="models/gemini-1.5-flash", api_key="AIzaSyC3qdktWjzcP3tMGGKzpP3EEJVv53N9sRY"
+)
 
 agent = ReActAgent.from_tools(tools, llm=llm, verbose=True, context=context)
 
